@@ -33,7 +33,7 @@ def arithmetic_arranger(problems, show_result=False):
       return "Error: Operator must be '+' or '-'."
 
     # fail condition: operands contain something other than digits
-    if not x.isdigit() or not y.isdigit():
+    if not (x+y).isdigit() :
       return "Error: Numbers must only contain digits."
 
     # fail condition: operands have length greater than 4 digits
