@@ -1,4 +1,14 @@
 def arithmetic_arranger(problems, show_result=False):
+  '''Takes list of strings of arithmetic problems and returns the problems
+     nicely formatted, including results if the optional second parameter is
+     set to True.
+
+     :param problems: list - list of arithmetic problems as strings, max of 5,
+        only + or - operations, with operands limited to 4 digits,
+        formatted as so 'x + y' or 'x - y'
+     :param show_result: boolean (optional) - True to include results
+     :result: str - formatted string of arithmetic problems
+  '''
 
   lines = {
     "top": "",
