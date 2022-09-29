@@ -32,24 +32,21 @@ def arithmetic_arranger(problems, show_result=False):
 
     # set up variables
     count += 1
-    biggest_operand = operand_one if len(operand_one) >= len(operand_two) else operand_two
-    columns = len(biggest_operand)
+    offset = abs(len(operand_one) - len(operand_two))
 
     # build lines
     lines["top"] += ' ' * 2
     lines["bottom"] += operator + ' '
     lines["dashes"] += '-' * 2
 
-    if biggest_operand == operand_one:
+    if len(operand_one) > len(operand_two):
       lines["top"] += operand_one
-      lines["bottom"] += (' ' * (columns - len(operand_two)) +
-                         operand_two)
-      lines["dashes"] += '-' * columns
+      lines["bottom"] += ' ' * offset + operand_two
+      lines["dashes"] += '-' * len(operand_one)
     else:
-      lines["top"] += (' ' * (columns - len(operand_one)) +
-                      operand_one)
+      lines["top"] += ' ' * offset + operand_one
       lines["bottom"] += operand_two
-      lines["dashes"] += '-' * columns
+      lines["dashes"] += '-' * len(operand_two)
 
     # conditional: results line
     if show_result:
@@ -58,7 +55,7 @@ def arithmetic_arranger(problems, show_result=False):
       else:
         result = str(int(operand_one) - int(operand_two))
 
-      lines["result"] += ' ' * (2 + columns - len(result)) + result
+      lines["result"] += ' ' * (2 + max(len(operand_one), len(operand_two)) - len(result)) + result
 
     for line in lines:
       lines[line] += ' ' * 4 if count < len(problems) else '\n'
