@@ -5,16 +5,16 @@ def arithmetic_arranger(problems, show_result=False):
     "bottom": "",
     "dashes": ""
   }
-  
+
   if show_result : lines["result"] = ""
-  
+
   # fail condition: more than five problems
   if len(problems) > 5:
     return "Error: Too many problems."
 
   count = 0
   for problem in problems:
-    
+
     # parse each argument
     operand_one, operator, operand_two = problem.split(' ')
 
@@ -23,10 +23,7 @@ def arithmetic_arranger(problems, show_result=False):
       return "Error: Operator must be '+' or '-'."
 
     # fail condition: operands contain something other than digits
-    try:
-      int(operand_one)
-      int(operand_two)
-    except ValueError:
+    if not operand_one.isdigit() or not operand_two.isdigit():
       return "Error: Numbers must only contain digits."
 
     # fail condition: operands have length greater than 4 digits
@@ -45,11 +42,11 @@ def arithmetic_arranger(problems, show_result=False):
 
     if biggest_operand == operand_one:
       lines["top"] += operand_one
-      lines["bottom"] += (' ' * (columns - len(operand_two)) + 
+      lines["bottom"] += (' ' * (columns - len(operand_two)) +
                          operand_two)
       lines["dashes"] += '-' * columns
     else:
-      lines["top"] += (' ' * (columns - len(operand_one)) + 
+      lines["top"] += (' ' * (columns - len(operand_one)) +
                       operand_one)
       lines["bottom"] += operand_two
       lines["dashes"] += '-' * columns
@@ -60,15 +57,15 @@ def arithmetic_arranger(problems, show_result=False):
         result = str(int(operand_one) + int(operand_two))
       else:
         result = str(int(operand_one) - int(operand_two))
-      
+
       lines["result"] += ' ' * (2 + columns - len(result)) + result
 
     for line in lines:
       lines[line] += ' ' * 4 if count < len(problems) else '\n'
-        
+
   # concatenate lines
   arranged_problems = lines["top"] + lines["bottom"] + lines["dashes"]
-    
+
   # return arranged_problems
-  return (arranged_problems + lines["result"].rstrip() if show_result 
+  return (arranged_problems + lines["result"].rstrip() if show_result
          else arranged_problems.rstrip())
