@@ -26,46 +26,46 @@ def arithmetic_arranger(problems, show_result=False):
   for problem in problems:
 
     # parse each argument
-    operand_one, operator, operand_two = problem.split(' ')
+    x, operator, y = problem.split(' ')
 
     # fail condition: operator other than '+' or '-'
     if operator not in '+-':
       return "Error: Operator must be '+' or '-'."
 
     # fail condition: operands contain something other than digits
-    if not operand_one.isdigit() or not operand_two.isdigit():
+    if not x.isdigit() or not y.isdigit():
       return "Error: Numbers must only contain digits."
 
     # fail condition: operands have length greater than 4 digits
-    if len(operand_one) > 4 or len(operand_two) > 4:
+    if len(x) > 4 or len(y) > 4:
       return "Error: Numbers cannot be more than four digits."
 
     # set up variables
     count += 1
-    offset = abs(len(operand_one) - len(operand_two))
+    offset = abs(len(x) - len(y))
 
     # build lines
     lines["top"] += ' ' * 2
     lines["bottom"] += operator + ' '
     lines["dashes"] += '-' * 2
 
-    if len(operand_one) > len(operand_two):
-      lines["top"] += operand_one
-      lines["bottom"] += ' ' * offset + operand_two
-      lines["dashes"] += '-' * len(operand_one)
+    if len(x) > len(y):
+      lines["top"] += x
+      lines["bottom"] += ' ' * offset + y
+      lines["dashes"] += '-' * len(x)
     else:
-      lines["top"] += ' ' * offset + operand_one
-      lines["bottom"] += operand_two
-      lines["dashes"] += '-' * len(operand_two)
+      lines["top"] += ' ' * offset + x
+      lines["bottom"] += y
+      lines["dashes"] += '-' * len(y)
 
     # conditional: results line
     if show_result:
       if operator == '+':
-        result = str(int(operand_one) + int(operand_two))
+        result = str(int(x) + int(y))
       else:
-        result = str(int(operand_one) - int(operand_two))
+        result = str(int(x) - int(y))
 
-      lines["result"] += ' ' * (2 + max(len(operand_one), len(operand_two)) - len(result)) + result
+      lines["result"] += ' ' * (2 + max(len(x), len(y)) - len(result)) + result
 
     for line in lines:
       lines[line] += ' ' * 4 if count < len(problems) else '\n'
